@@ -1,0 +1,23 @@
+# Project workstreams
+
+Current source and current evidence override this index; reverify before reporting status.
+
+## Active
+
+- [__ACTIVE_OUTCOME__](__ACTIVE_CONTEXT_PATH__): __ACTIVE_STATE__.
+
+## Next
+
+- [__NEXT_OUTCOME__](__NEXT_CONTEXT_PATH__): __NEXT_STATE__.
+
+## Deferred
+
+- __DEFERRED_OUTCOME__: __DEFERRED_BOUNDARY__.
+
+## Feature expansion rule
+
+Keep this file as an outcome and workstream index, not a history or implementation ledger.
+
+Split a subject into a semantically named context document when it acquires its own coherent decision history, behavior contract, implementation state, verification, wording, sources or unresolved points; after extraction, remove duplicated detail from this index.
+
+Do not create speculative empty feature documents or split by a numerical line threshold.

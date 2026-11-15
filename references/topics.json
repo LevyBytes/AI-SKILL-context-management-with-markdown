@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "owner": ".",
+  "topics": [
+    {
+      "topic": "Context management",
+      "file": "references/context-management.md",
+      "summary": "Open when designing concise shared routers, semantic context expansion, project decisions, checkpoint rotation, compaction recovery or stale-context checks.",
+      "keywords": [
+        "progressive disclosure",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "no plugin",
+        "compaction recovery",
+        "context freshness",
+        "project decisions"
+      ]
+    },
+    {
+      "topic": "Workspace and access",
+      "file": "references/workspace-and-access.md",
+      "summary": "Open when choosing single-root or split-root topology, resolving VS Code folders or configuring Claude and Codex access matrices.",
+      "keywords": [
+        "VS Code workspace",
+        "project initialization",
+        "files.eol",
+        "Claude settings",
+        "Codex config",
+        "context root",
+        "writable roots"
+      ]
+    },
+    {
+      "topic": "Folder layout",
+      "file": "references/folder-layout.md",
+      "summary": "Open when declaring context, evidence, deliverable, workspace or temp destinations without imposing a fixed repository tree.",
+      "keywords": [
+        "folder layout",
+        "evidence directory",
+        "temp directory",
+        "optional prefix"
+      ]
+    },
+    {
+      "topic": "Windows launcher",
+      "file": "references/windows-launcher.md",
+      "summary": "Open when the selected profile includes a CMD launcher and its byte format, workspace resolution, Code discovery or PATH boundary needs review.",
+      "keywords": [
+        "optional launcher",
+        "CMD",
+        "LF",
+        "Code.exe"
+      ]
+    },
+    {
+      "topic": "Validation",
+      "file": "references/validation.md",
+      "summary": "Open when preparing the explicit manifest, running deterministic checks, interpreting status classes or exercising bounded fixtures.",
+      "keywords": [
+        "setup manifest",
+        "strict JSON",
+        "tomllib",
+        "negative fixture",
+        "validation status"
+      ]
+    },
+    {
+      "topic": "Reference Language Selection",
+      "file": "references/languages.md",
+      "summary": "Open when you need a language version of references other than English.",
+      "keywords": [
+        "reference language",
+        "translated references"
+      ]
+    }
+  ]
+}

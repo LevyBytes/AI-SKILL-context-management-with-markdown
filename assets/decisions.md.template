@@ -1,0 +1,15 @@
+# Project decisions
+
+The declared project authority's exact words are retained by subject, newest last, excluding credentials, tokens, private URLs and unrelated personal details.
+
+When later wording explicitly replaces earlier wording, preserve both quotations and state the supersession after the newer quotation; route derived implications to the relevant subject document.
+
+## __SUBJECT__
+
+### __YYYY_MM_DD__
+
+> __EXACT_AUTHORITATIVE_WORDING__
+
+Supersedes: __EARLIER_DECISION_OR_NONE__.
+
+Derived implications: [__SUBJECT_LABEL__](__SUBJECT_PATH__).

@@ -1,0 +1,34 @@
+# __PROJECT_NAME__ instructions
+
+<!-- __ROUTER_OWNERSHIP_NOTE__ -->
+
+## Project Brief
+
+- [__PROJECT_BRIEF_LABEL__](__PROJECT_BRIEF_PATH__): Open before project work to load purpose, topology, boundaries, access and publication controls.
+
+## Current Objectives
+
+- [__OBJECTIVES_LABEL__](__OBJECTIVES_PATH__): Open when selecting a workstream or reporting objective state; it is the concise index and routes cohesive subjects.
+
+## Working Rules
+
+__WORKING_RULES__
+
+## Workspace and Tools
+
+- [__CONTEXT_LABEL__](__CONTEXT_PATH__): Open before changing context, roots, provider access, temp routing or an optional launcher; it owns those contracts and current state.
+
+## Editing and Verification
+
+- Preserve unrelated content, read repository-local instructions before changes, reverify current evidence and report passed, failed, skipped and not-run checks separately.
+- __ROUTER_UPDATE_INSTRUCTION__
+
+## Document Triggers
+
+- [__DECISIONS_LABEL__](__DECISIONS_PATH__): Open when project intent, authority or supersession matters; it preserves the declared decision record.
+- [__SUBJECT_LABEL__](__SUBJECT_PATH__): Open when the subject has its own contract, evidence or unresolved decisions; it owns that cohesive context.
+- [__EVIDENCE_LABEL__](__EVIDENCE_PATH__): Open when exact plans, commands, evidence or recovery detail is needed; it is the task record.
+
+## Resume State
+
+- [__CHECKPOINT_LABEL__](__CHECKPOINT_PATH__): Open only when resuming or handing off; it contains the single newest actionable checkpoint.

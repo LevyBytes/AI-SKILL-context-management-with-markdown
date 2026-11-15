@@ -1,0 +1,102 @@
+{
+  "schema_version": 3,
+  "project": {
+    "identity": "__PROJECT_IDENTITY__",
+    "name_prefix": "",
+    "context_root": "__PROJECT_ROOT__",
+    "source_root": "__PROJECT_ROOT__",
+    "auxiliary_roots": []
+  },
+  "paths": {
+    "workspace": ".vscode/project.code-workspace",
+    "claude_settings": ".claude/settings.json",
+    "codex_config": ".codex/config.toml",
+    "launcher": null
+  },
+  "workspace": {
+    "folder_order": [
+      "__PROJECT_ROOT__"
+    ],
+    "folder_names": [
+      "__PROJECT_NAME__"
+    ],
+    "window_title": "__WINDOW_TITLE__",
+    "terminal_cwd": "${workspaceFolder:__PROJECT_NAME__}",
+    "terminal_cwd_resolved": "__PROJECT_ROOT__",
+    "file_eol": "\n",
+    "python_interpreter": null,
+    "automatic_python_activation": null,
+    "required_search_exclusions": []
+  },
+  "providers": {
+    "claude": {
+      "access_roots": [
+        "__PROJECT_ROOT__"
+      ],
+      "temp_dir": "__PROJECT_ROOT__\\.agent-temp\\claude",
+      "block_writes_outside": true,
+      "required_denials": []
+    },
+    "codex": {
+      "access_roots": [
+        "__PROJECT_ROOT__"
+      ],
+      "temp_dir": "__PROJECT_ROOT__\\.agent-temp\\codex",
+      "exclude_tmpdir_env_var": true,
+      "network_access": null
+    }
+  },
+  "required_folders": [
+    ".claude",
+    ".codex",
+    ".vscode",
+    ".agent-temp/claude",
+    ".agent-temp/codex",
+    "docs"
+  ],
+  "context": {
+    "router_ownership": "hand-maintained",
+    "router_source": null,
+    "required_documents": [
+      "PROJECT_BRIEF.md",
+      "FEATURES.md",
+      "__CONTEXT_FEATURE__.md",
+      "docs/DECISIONS.md",
+      "CHECKPOINT.md"
+    ],
+    "router_targets": {
+      "AGENTS.md": [
+        "PROJECT_BRIEF.md",
+        "FEATURES.md",
+        "__CONTEXT_FEATURE__.md",
+        "docs/DECISIONS.md",
+        "CHECKPOINT.md"
+      ],
+      "CLAUDE.md": [
+        "PROJECT_BRIEF.md",
+        "FEATURES.md",
+        "__CONTEXT_FEATURE__.md",
+        "docs/DECISIONS.md",
+        "CHECKPOINT.md"
+      ]
+    }
+  },
+  "launcher": {
+    "enabled": false,
+    "workspace_relative": "__WORKSPACE_RELATIVE_TO_LAUNCHER__",
+    "temp_relative": "__CLAUDE_TEMP_RELATIVE_TO_LAUNCHER__",
+    "require_bomless": true,
+    "line_endings": "lf",
+    "resolve_code_from_code_cmd": true,
+    "launch_during_validation": false
+  },
+  "path_policy": {
+    "allow_persistent_mutation": false,
+    "approved_existing_process_mutations": []
+  },
+  "preservation": {
+    "setup_is_idempotent": true,
+    "preserve_unlisted_content": true,
+    "must_exist": []
+  }
+}

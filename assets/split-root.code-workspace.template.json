@@ -1,0 +1,32 @@
+{
+  "folders": [
+    {
+      "name": "__CONTEXT_NAME__",
+      "path": ".."
+    },
+    {
+      "name": "__SOURCE_NAME__",
+      "path": "__SOURCE_RELATIVE_PATH__"
+    }
+  ],
+  "settings": {
+    "window.title": "__PROJECT_IDENTITY__${separator}${dirty}${activeEditorShort}${separator}${appName}",
+    "terminal.integrated.cwd": "${workspaceFolder:__CONTEXT_NAME__}",
+    "files.eol": "\n",
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/target": true,
+      "**/bin": true,
+      "**/obj": true,
+      "**/node_modules": true
+    },
+    "search.exclude": {
+      "**/__pycache__": true,
+      "**/target": true,
+      "**/bin": true,
+      "**/obj": true,
+      "**/node_modules": true,
+      "__PROJECT_SPECIFIC_SCRATCH_GLOB__": true
+    }
+  }
+}

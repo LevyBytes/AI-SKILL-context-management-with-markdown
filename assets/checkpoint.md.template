@@ -1,0 +1,39 @@
+# Current checkpoint
+
+## Objective and authority
+
+- Current objective: __CURRENT_OBJECTIVE__.
+- Latest authoritative direction: __LATEST_DIRECTION_AND_SOURCE__.
+- Approval boundary: __AUTHORIZED_AND_NOT_AUTHORIZED__.
+
+## Done
+
+- __NEWEST_COMPLETED_OUTCOME_WITH_EVIDENCE_ROUTE__.
+- Changed paths: __EXACT_CHANGED_PATHS_OR_NONE__.
+
+## Verification
+
+- Passed: __PASSED_CHECKS_OR_NONE__.
+- Failed: __FAILED_CHECKS_OR_NONE__.
+- Skipped: __SKIPPED_CHECKS_OR_NONE__.
+- Not run: __NOT_RUN_CHECKS_OR_NONE__.
+
+## Next
+
+- __NEXT_AUTHORIZED_ACTION__.
+- First safe command: __EXACT_COMMAND_OR_NONE__.
+- Reopen before acting: __CURRENT_SOURCE_AND_EVIDENCE_PATHS__.
+
+## Running
+
+- __CURRENTLY_RUNNING_PROCESS_OR_NONE__.
+
+## Blocked
+
+- __GENUINE_BLOCKER_OR_NONE__.
+
+## Recovery coordinates
+
+- Work folder: __OWNING_WORK_FOLDER__.
+- Critical identifiers and hashes: __IDENTIFIERS_HASHES_OR_NONE__.
+- Workflow, plan, rule or task identifiers: __PROJECT_SELECTED_IDENTIFIERS_OR_NONE__.

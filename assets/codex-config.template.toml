@@ -1,0 +1,9 @@
+[sandbox_workspace_write]
+exclude_tmpdir_env_var = true
+writable_roots = ['__CODEX_WRITABLE_ROOT__']
+
+[shell_environment_policy.set]
+TEMP = '__CODEX_TEMP_DIRECTORY__'
+TMP = '__CODEX_TEMP_DIRECTORY__'
+
+# Add network, compaction, personality, model and extra tool-root settings only after recording the project's explicit decision.

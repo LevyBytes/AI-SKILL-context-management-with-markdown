@@ -1,0 +1,12 @@
+{
+  "env": {
+    "CLAUDE_CODE_TMPDIR": "__CLAUDE_TEMP_DIRECTORY__"
+  },
+  "permissions": {
+    "additionalDirectories": [
+      "__CLAUDE_ACCESS_ROOT__"
+    ],
+    "blockWritesOutsideWorkingDirectories": true,
+    "deny": []
+  }
+}

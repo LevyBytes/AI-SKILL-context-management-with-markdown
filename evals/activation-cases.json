@@ -1,0 +1,93 @@
+[
+  {
+    "id": "single-root-context",
+    "request": "Use one repository as both the context and source root, then align its VS Code folders and Claude Code and Codex access with an explicit manifest.",
+    "should_activate": true,
+    "reference": "references/workspace-and-access.md",
+    "expected": "Select the single-root topology, keep context routing concise and declare provider access explicitly."
+  },
+  {
+    "id": "split-root-workspace",
+    "request": "Create a documentation and agent-context root beside our source repository, then open both in one VS Code workspace.",
+    "should_activate": true,
+    "reference": "references/workspace-and-access.md",
+    "expected": "Select split-root topology, resolve relative workspace paths and avoid migrating source content."
+  },
+  {
+    "id": "context-only-repair",
+    "request": "Our agent instructions and checkpoint have accumulated years of duplicated history. Repair the context routing without changing application code.",
+    "should_activate": true,
+    "reference": "references/context-management.md",
+    "expected": "Restore one authority per fact class, semantic routing and one current checkpoint while preserving reviewed history."
+  },
+  {
+    "id": "resume-after-compaction",
+    "request": "Make AGENTS.md and CLAUDE.md survive context compaction with one current handoff that tells the next agent exactly what to reopen and do first.",
+    "should_activate": true,
+    "reference": "references/context-management.md",
+    "expected": "Keep the routers concise and record objective, authority boundary, verification, reopen paths, recovery coordinates and the first safe action in the current checkpoint."
+  },
+  {
+    "id": "provider-access-drift",
+    "request": "The VS Code folders, Claude additional directories and Codex writable roots no longer agree. Validate them against an explicit manifest.",
+    "should_activate": true,
+    "reference": "references/workspace-and-access.md",
+    "expected": "Compare each provider with its own declared access matrix and report drift without changing provider state implicitly."
+  },
+  {
+    "id": "optional-windows-launcher",
+    "request": "Add an optional Windows launcher that opens our workspace relative to the script and never rewrites PATH.",
+    "should_activate": true,
+    "reference": "references/windows-launcher.md",
+    "expected": "Use the parameterized BOM-less LF launcher profile and validate it without opening VS Code."
+  },
+  {
+    "id": "explicit-custom-profile",
+    "request": "Use the public context setup, but give our documentation root an Acme_ prefix and configure separate source, temp and evidence directories.",
+    "should_activate": true,
+    "reference": "references/folder-layout.md",
+    "expected": "Start from prefix-free public defaults, then declare the selected project.name_prefix and folder roles without enabling a hidden library profile."
+  },
+  {
+    "id": "plugin-free-project-initialization",
+    "request": "Initialize a new VS Code project for Claude Code and Codex with durable context management, standard project folders and no context plugin.",
+    "should_activate": true,
+    "reference": "references/workspace-and-access.md",
+    "expected": "Guide agent-performed initialization from explicit templates, create concise routed context, declare provider access and temp roots, and validate the result without installing a plugin."
+  },
+  {
+    "id": "ordinary-documentation",
+    "request": "Rewrite the installation section in my application README.",
+    "should_activate": false,
+    "reference": null,
+    "expected": "Use ordinary documentation guidance rather than project context and workspace setup."
+  },
+  {
+    "id": "open-workspace",
+    "request": "Open my existing VS Code workspace now.",
+    "should_activate": false,
+    "reference": null,
+    "expected": "Use the existing launcher or GUI workflow; do not invoke setup merely to open a workspace."
+  },
+  {
+    "id": "source-implementation",
+    "request": "Implement a new parser in the application source.",
+    "should_activate": false,
+    "reference": null,
+    "expected": "Use the source repository's implementation guidance and current authority."
+  },
+  {
+    "id": "provider-installation",
+    "request": "Install Claude Code and Codex globally on this computer.",
+    "should_activate": false,
+    "reference": null,
+    "expected": "Use the relevant provider installation workflow rather than project context setup."
+  },
+  {
+    "id": "deploy-and-publish",
+    "request": "Deploy this staged skill to every provider and publish it publicly.",
+    "should_activate": false,
+    "reference": null,
+    "expected": "Use a separately authorized deployment and publication workflow."
+  }
+]

@@ -1,0 +1,14 @@
+@echo off
+setlocal EnableExtensions DisableDelayedExpansion
+set "WS=%~dp0__WORKSPACE_RELATIVE__"
+cd /d "%~dp0"
+set "CLAUDE_CODE_TMPDIR=%~dp0__CLAUDE_TEMP_RELATIVE__"
+if not exist "%CLAUDE_CODE_TMPDIR%\" mkdir "%CLAUDE_CODE_TMPDIR%"
+set "VSCODE_EXE="
+for /f "delims=" %%I in ('where code.cmd 2^>nul') do if exist "%%~dpI..\Code.exe" set "VSCODE_EXE=%%~dpI..\Code.exe"
+if defined VSCODE_EXE (
+  start "" "%VSCODE_EXE%" "%WS%"
+) else (
+  start "" "%WS%"
+)
+endlocal
