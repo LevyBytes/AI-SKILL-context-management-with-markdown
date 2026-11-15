@@ -11,7 +11,7 @@ Choose one topology explicitly:
 
 Add auxiliary roots only when current project authority explicitly places them in scope.
 
-The public default is single-root with an empty `project.name_prefix`. Kaizen and other custom profiles must declare any nonempty prefix, split roots and additional conventions explicitly; the skill has no implicit library-specific mode.
+The public default is single-root with an empty `project.name_prefix`. A nonempty value is declarative leading text that an initializing agent prepends to selected project names; it does not rewrite paths automatically. Kaizen and other custom profiles must declare the resulting names, split roots and additional conventions explicitly; the skill has no implicit library-specific mode.
 
 Order workspace folders as the context root, a distinct source root when present, then approved auxiliaries; resolve every relative path against the workspace file before comparing it with the manifest.
 

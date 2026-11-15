@@ -330,7 +330,7 @@ def validate_setup(manifest_path: Path, project_root: Path) -> Report:
 
     try:
         manifest = require_mapping(manifest, "setup manifest")
-        compare(report, "manifest_schema", manifest.get("schema_version"), 3, "manifest schema version is supported")
+        compare(report, "manifest_schema", manifest.get("schema_version"), 4, "manifest schema version is supported")
         project = require_mapping(manifest.get("project"), "project")
         paths = require_mapping(manifest.get("paths"), "paths")
         workspace_contract = require_mapping(manifest.get("workspace"), "workspace")
@@ -386,7 +386,9 @@ def validate_setup(manifest_path: Path, project_root: Path) -> Report:
     compare(report, "project_root", canonical(root), canonical(context_root), "CLI project root matches manifest context root")
     report.pass_(
         "project_name_prefix",
-        "project name prefix is explicitly declared" if name_prefix else "project uses the prefix-free public default",
+        "project name leading text is explicitly declared; resulting names and paths remain separately manifested"
+        if name_prefix
+        else "project uses the prefix-free public default",
     )
     compare(
         report,
@@ -627,6 +629,93 @@ def validate_setup(manifest_path: Path, project_root: Path) -> Report:
     except ValueError as exc:
         report.fail("required_folders", str(exc))
 
+    required_documents: list[Any] = []
+    try:
+        required_documents = require_list(context.get("required_documents"), "context.required_documents")
+        features_index_value = context.get("features_index")
+        if not isinstance(features_index_value, str) or not features_index_value.strip():
+            raise ValueError("context.features_index must be a nonempty project-relative path")
+        features_index_path = project_path(root, features_index_value)
+        if features_index_path.name == "FEATURES.md":
+            report.pass_("feature_index_name", "expanded-feature index uses the fixed FEATURES.md name")
+        else:
+            report.fail("feature_index_name", f"expanded-feature index must be named FEATURES.md: {features_index_value}")
+        if features_index_path.is_file():
+            report.pass_("feature_index_exists", f"feature index exists: {features_index_value}")
+        else:
+            report.fail("feature_index_exists", f"feature index is missing: {features_index_value}")
+        required_paths = {canonical(project_path(root, str(item))) for item in required_documents}
+        if canonical(features_index_path) in required_paths:
+            report.pass_("feature_index_membership", "FEATURES.md is included in required context documents")
+        else:
+            report.fail("feature_index_membership", "context.features_index must also appear in context.required_documents")
+
+        raw_feature_documents = require_list(context.get("feature_documents"), "context.feature_documents")
+        if any(not isinstance(item, str) or not item.strip() for item in raw_feature_documents):
+            raise ValueError("context.feature_documents must contain only nonempty project-relative paths")
+        feature_documents = [str(item) for item in raw_feature_documents]
+        feature_paths = [project_path(root, item) for item in feature_documents]
+        canonical_features = [canonical(path) for path in feature_paths]
+        duplicate_features = sorted({path for path in canonical_features if canonical_features.count(path) > 1})
+        if duplicate_features:
+            report.fail("feature_document_duplicates", f"expanded feature documents must be unique: {duplicate_features}")
+        else:
+            report.pass_("feature_document_duplicates", "expanded feature document paths are unique")
+
+        invalid_names = []
+        wrong_locations = []
+        missing_membership = []
+        missing_files = []
+        for relative, path in zip(feature_documents, feature_paths, strict=True):
+            name = path.name
+            subject = name[len("FEATURE_") : -len(".md")] if name.startswith("FEATURE_") and name.endswith(".md") else ""
+            subject_is_resolved = bool(subject) and re.fullmatch(r"[^\s{}]+", subject) is not None
+            retains_suffix_convention = subject.casefold().endswith("_feature")
+            if not subject_is_resolved or retains_suffix_convention:
+                invalid_names.append(relative)
+            if canonical(path.parent) != canonical(features_index_path.parent):
+                wrong_locations.append(relative)
+            if canonical(path) not in required_paths:
+                missing_membership.append(relative)
+            if not path.is_file():
+                missing_files.append(relative)
+        if invalid_names:
+            report.fail(
+                "feature_document_names",
+                "expanded features must use FEATURE_<subject>.md with a resolved nonwhitespace subject "
+                f"that does not retain an _FEATURE suffix: {invalid_names}",
+            )
+        else:
+            report.pass_("feature_document_names", "all expanded features use the fixed FEATURE_<subject>.md convention")
+        if wrong_locations:
+            report.fail("feature_document_location", f"expanded features must be siblings of FEATURES.md: {wrong_locations}")
+        else:
+            report.pass_("feature_document_location", "all expanded features are siblings of FEATURES.md")
+        if missing_membership:
+            report.fail("feature_document_membership", f"expanded features are absent from required_documents: {missing_membership}")
+        else:
+            report.pass_("feature_document_membership", "all expanded features are required context documents")
+        if missing_files:
+            report.fail("feature_document_files", f"expanded feature documents are missing: {missing_files}")
+        else:
+            report.pass_("feature_document_files", "all declared expanded feature documents exist")
+
+        missing_index_links: list[str] = []
+        if features_index_path.is_file():
+            features_text = inputs.read(features_index_path).decode("utf-8")
+            linked_features = markdown_link_targets(features_text, features_index_path, root)
+            missing_index_links = [
+                relative
+                for relative, path in zip(feature_documents, feature_paths, strict=True)
+                if canonical(path) not in linked_features
+            ]
+        if missing_index_links:
+            report.fail("feature_document_links", f"FEATURES.md lacks actual Markdown links to: {missing_index_links}")
+        elif features_index_path.is_file():
+            report.pass_("feature_document_links", "FEATURES.md links every declared expanded feature")
+    except (OSError, UnicodeDecodeError, TypeError, ValueError) as exc:
+        report.fail("feature_contract", str(exc))
+
     try:
         router_ownership = context.get("router_ownership")
         if router_ownership not in {"generated", "hand-maintained"}:
@@ -645,7 +734,6 @@ def validate_setup(manifest_path: Path, project_root: Path) -> Report:
             report.skip("router_source", "hand-maintained routers have no generated source")
         else:
             raise ValueError("hand-maintained router ownership requires context.router_source to be null")
-        required_documents = require_list(context.get("required_documents"), "context.required_documents")
         missing_documents = [item for item in required_documents if not project_path(root, str(item)).is_file()]
         if missing_documents:
             report.fail("required_context_documents", f"required context documents are missing: {missing_documents}")
@@ -1115,10 +1203,20 @@ def build_fixture(container: Path, mutation: str | None) -> tuple[Path, Path]:
         newline = "\r\n" if mutation == "launcher-crlf" else "\n"
         (project / launcher_filename).write_bytes((newline.join(launcher_lines) + newline).encode("utf-8"))
 
+    feature_relative = "FEATURE_context-management.md"
+    if mutation == "feature-suffix-name":
+        feature_relative = "context-management_FEATURE.md"
+    if mutation == "feature-dual-direction-name":
+        feature_relative = "FEATURE_context-management_FEATURE.md"
+    if mutation == "feature-unrendered-placeholder":
+        feature_relative = "FEATURE_{subject}.md"
+    if mutation == "feature-nested":
+        feature_relative = "docs/FEATURE_context-management.md"
+    feature_documents = [] if mutation == "zero-features" else [feature_relative]
     context_documents = (
         "PROJECT_BRIEF.md",
         "FEATURES.md",
-        "CONTEXT_MANAGEMENT_FEATURE.md",
+        *feature_documents,
         "docs/DECISIONS.md",
         "CHECKPOINT.md",
     )
@@ -1126,6 +1224,15 @@ def build_fixture(container: Path, mutation: str | None) -> tuple[Path, Path]:
         path = project / Path(relative)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(f"# {Path(relative).stem}\n", encoding="utf-8", newline="\n")
+    if feature_documents and mutation != "feature-missing-index-link":
+        feature_links = "\n".join(
+            f"- [{Path(relative).stem}]({Path(relative).as_posix()})" for relative in feature_documents
+        )
+        (project / "FEATURES.md").write_text(
+            f"# FEATURES\n\n{feature_links}\n",
+            encoding="utf-8",
+            newline="\n",
+        )
     (project / "docs" / "ROUTER_SOURCE.md").write_text("# Router source\n", encoding="utf-8", newline="\n")
     router_text = "\n".join(f"- [{Path(item).stem}]({item})" for item in context_documents) + "\n"
     if mutation == "router-comment-only":
@@ -1161,8 +1268,14 @@ def build_fixture(container: Path, mutation: str | None) -> tuple[Path, Path]:
     workspace_roots.append(str(auxiliary))
     workspace_names.append("auxiliary")
     fixture_denials = [] if mutation == "single-root" else DENIALS
+    required_context_documents = list(context_documents)
+    if mutation == "feature-not-required":
+        required_context_documents.remove(feature_relative)
+    manifested_features = list(feature_documents)
+    if mutation == "feature-duplicate" and feature_documents:
+        manifested_features.append(feature_documents[0])
     manifest = {
-        "schema_version": 3,
+        "schema_version": 3 if mutation == "legacy-schema-3" else 4,
         "project": {
             "identity": "fixture",
             "name_prefix": "" if mutation != "invalid-name-prefix" else None,
@@ -1205,8 +1318,13 @@ def build_fixture(container: Path, mutation: str | None) -> tuple[Path, Path]:
         "context": {
             "router_ownership": "hand-maintained" if mutation == "hand-maintained-router" else "generated",
             "router_source": None if mutation == "hand-maintained-router" else "docs/ROUTER_SOURCE.md",
-            "required_documents": list(context_documents),
-            "router_targets": {"AGENTS.md": list(context_documents), "CLAUDE.md": list(context_documents)},
+            "features_index": "FEATURES.md",
+            "feature_documents": manifested_features,
+            "required_documents": required_context_documents,
+            "router_targets": {
+                "AGENTS.md": list(required_context_documents),
+                "CLAUDE.md": list(required_context_documents),
+            },
         },
         "launcher": {
             "enabled": False if mutation == "launcher-disabled" else True,
@@ -1234,7 +1352,7 @@ def build_fixture(container: Path, mutation: str | None) -> tuple[Path, Path]:
     if mutation == "launcher-temp-traversal":
         manifest["launcher"]["temp_relative"] = "..\\outside-temp"
     if mutation == "router-missing-target":
-        manifest["context"]["router_targets"]["AGENTS.md"].append("MISSING_FEATURE.md")
+        manifest["context"]["router_targets"]["AGENTS.md"].append("FEATURE_missing.md")
     if mutation == "missing-provider-matrix":
         del manifest["providers"]["claude"]
     manifest_path = container / "manifest.json"
@@ -1283,6 +1401,15 @@ def run_self_test(work: Path) -> int:
         ("valid-single-root", "single-root", None),
         ("valid-launcher-disabled", "launcher-disabled", None),
         ("valid-hand-maintained-router", "hand-maintained-router", None),
+        ("valid-zero-features", "zero-features", None),
+        ("legacy-schema-3", "legacy-schema-3", "manifest_schema"),
+        ("feature-suffix-name", "feature-suffix-name", "feature_document_names"),
+        ("feature-dual-direction-name", "feature-dual-direction-name", "feature_document_names"),
+        ("feature-unrendered-placeholder", "feature-unrendered-placeholder", "feature_document_names"),
+        ("feature-nested", "feature-nested", "feature_document_location"),
+        ("feature-missing-index-link", "feature-missing-index-link", "feature_document_links"),
+        ("feature-not-required", "feature-not-required", "feature_document_membership"),
+        ("feature-duplicate", "feature-duplicate", "feature_document_duplicates"),
         ("invalid-json", "invalid-json", "workspace_json"),
         ("invalid-name-prefix", "invalid-name-prefix", "project_name_prefix"),
         ("wrong-root-order", "wrong-root-order", "workspace_root_order"),
@@ -1321,6 +1448,16 @@ def run_self_test(work: Path) -> int:
         ("codex-tmpdir-inheritance", "codex-tmpdir-inheritance", "codex_exclude_tmpdir_env"),
         ("missing-provider-matrix", "missing-provider-matrix", "manifest_provider_contracts"),
     ]
+    exact_failure_codes = {
+        "legacy-schema-3": {"manifest_schema"},
+        "feature-suffix-name": {"feature_document_names"},
+        "feature-dual-direction-name": {"feature_document_names"},
+        "feature-unrendered-placeholder": {"feature_document_names"},
+        "feature-nested": {"feature_document_location"},
+        "feature-missing-index-link": {"feature_document_links"},
+        "feature-not-required": {"feature_document_membership"},
+        "feature-duplicate": {"feature_document_duplicates"},
+    }
     try:
         for name, mutation, expected_failure in cases:
             case_root = temporary / name
@@ -1335,7 +1472,15 @@ def run_self_test(work: Path) -> int:
             elif expected_failure in result.failed_codes:
                 for check in failures:
                     print(f"EXPECTED FAILED {name}/{check.code}: {check.detail}")
-                summary.pass_(f"fixture_{name}", f"fixture was rejected with required code {expected_failure}")
+                expected_codes = exact_failure_codes.get(name)
+                observed_codes = set(result.failed_codes)
+                if expected_codes is not None and observed_codes != expected_codes:
+                    summary.fail(
+                        f"fixture_{name}",
+                        f"expected isolated failures {sorted(expected_codes)}; observed={sorted(observed_codes)}",
+                    )
+                else:
+                    summary.pass_(f"fixture_{name}", f"fixture was rejected with required code {expected_failure}")
             else:
                 summary.fail(
                     f"fixture_{name}",

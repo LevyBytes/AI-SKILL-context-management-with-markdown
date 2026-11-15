@@ -8,7 +8,7 @@ Give each fact class one authoritative layer and route to it instead of copying 
 
 A useful profile separates stable purpose and boundaries, current objectives, cohesive subject contracts, exact project decisions, one current checkpoint, and detailed task evidence.
 
-Names such as `PROJECT_BRIEF.md`, `FEATURES.md`, `*_FEATURE.md`, `DECISIONS.md` and `CHECKPOINT.md` are recommended examples, not mandatory filenames; declare the actual paths in the setup manifest.
+Names such as `PROJECT_BRIEF.md`, `DECISIONS.md` and `CHECKPOINT.md` are recommended examples, not mandatory filenames; declare the actual paths in the setup manifest. The bundled feature-expansion profile is fixed: `FEATURES.md` is the index and expanded sibling documents use `FEATURE_<subject>.md`.
 
 Keep plans, command transcripts, fixtures and recovery material in the project-declared evidence location rather than the always-loaded router.
 
@@ -34,7 +34,7 @@ Do not split by a numerical line threshold and do not create speculative empty c
 
 After extraction, remove duplicated derived detail from objectives, checkpoints and provider routers while preserving the authoritative decision record.
 
-Use [the workstream index](../assets/features.md.template) and [subject feature](../assets/subject-feature.md.template) templates only when that profile fits the project.
+Use [the workstream index](../assets/features.md.template) and [feature subject](../assets/feature-subject.md.template) templates only when that profile fits the project.
 
 ## Decisions and checkpoints
 

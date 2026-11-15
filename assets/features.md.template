@@ -20,4 +20,6 @@ Keep this file as an outcome and workstream index, not a history or implementati
 
 Split a subject into a semantically named context document when it acquires its own coherent decision history, behavior contract, implementation state, verification, wording, sources or unresolved points; after extraction, remove duplicated detail from this index.
 
-Do not create speculative empty feature documents or split by a numerical line threshold.
+Name every expanded sibling `FEATURE_<subject>.md` and link it from this `FEATURES.md` index.
+
+Do not create speculative empty feature documents, retain `<subject>_FEATURE.md` aliases or split by a numerical line threshold.

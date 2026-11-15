@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "project": {
     "identity": "__PROJECT_IDENTITY__",
     "name_prefix": "",
@@ -61,10 +61,14 @@
   "context": {
     "router_ownership": "hand-maintained",
     "router_source": null,
+    "features_index": "FEATURES.md",
+    "feature_documents": [
+      "FEATURE_{subject}.md"
+    ],
     "required_documents": [
       "PROJECT_BRIEF.md",
       "FEATURES.md",
-      "__CONTEXT_FEATURE__.md",
+      "FEATURE_{subject}.md",
       "docs/DECISIONS.md",
       "CHECKPOINT.md"
     ],
@@ -72,14 +76,14 @@
       "AGENTS.md": [
         "PROJECT_BRIEF.md",
         "FEATURES.md",
-        "__CONTEXT_FEATURE__.md",
+        "FEATURE_{subject}.md",
         "docs/DECISIONS.md",
         "CHECKPOINT.md"
       ],
       "CLAUDE.md": [
         "PROJECT_BRIEF.md",
         "FEATURES.md",
-        "__CONTEXT_FEATURE__.md",
+        "FEATURE_{subject}.md",
         "docs/DECISIONS.md",
         "CHECKPOINT.md"
       ]

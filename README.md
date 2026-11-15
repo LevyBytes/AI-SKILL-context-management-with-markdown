@@ -37,7 +37,7 @@ Use when creating, restructuring or validating plugin-free project context and V
 
 ## The work behind the references
 
-The package separates portable invariants from project choices: context authority, workspace order, provider roots, temp locations, router ownership, LF text defaults and optional launcher behavior all come from an explicit manifest. The public default is a single repository with an empty `project.name_prefix`; Kaizen and other custom profiles use the same schema and must explicitly provide any nonempty prefix, split roots, folders, denials and tool settings. Reusable assets guide agent-performed initialization, while the deterministic validator checks emitted project files without launching the editor or modifying provider state.
+The package separates portable invariants from project choices: context authority, workspace order, provider roots, temp locations, router ownership, LF text defaults and optional launcher behavior all come from an explicit manifest. The public default is a single repository with an empty `project.name_prefix`; a nonempty value is leading text that an initializing agent prepends, while the manifest records the resulting names and paths explicitly. Expanded feature documents follow the separate fixed `FEATURE_<subject>.md` convention beside `FEATURES.md`. Reusable assets guide agent-performed initialization, while the deterministic validator checks emitted project files without launching the editor or modifying provider state.
 
 ## Start here
 

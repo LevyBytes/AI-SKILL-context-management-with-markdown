@@ -10,7 +10,9 @@ Typical roles include provider settings, durable context, a VS Code workspace fi
 
 `.claude` and `.codex` are appropriate only when the corresponding provider is enabled; `docs`, `work`, `user` and `_workspace` are conventions, not required public defaults.
 
-No folder or filename prefix is required. Record an optional project-selected prefix in `project.name_prefix`; the public default is the empty string, and a renderer applies a nonempty value only when the project explicitly selects it.
+No universal folder-name prefix is required. The optional `project.name_prefix` field records leading text to prepend when an initializing agent chooses project names; for example, `Acme_` and `Planner` produce `Acme_Planner`, never `Planner_Acme`. The public default is the empty string. The field is declarative and changes no path by itself, so record every resulting root and workspace folder name explicitly in the manifest.
+
+Project-name prefixing is separate from the fixed expanded-feature convention: keep `FEATURES.md` as the index and name each expanded sibling `FEATURE_<subject>.md`.
 
 ## Single-root and split-root projects
 

@@ -12,6 +12,8 @@
         "CLAUDE.md",
         "no plugin",
         "compaction recovery",
+        "FEATURE_<subject>.md",
+        "feature expansion",
         "context freshness",
         "project decisions"
       ]

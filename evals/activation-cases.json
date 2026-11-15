@@ -46,7 +46,14 @@
     "request": "Use the public context setup, but give our documentation root an Acme_ prefix and configure separate source, temp and evidence directories.",
     "should_activate": true,
     "reference": "references/folder-layout.md",
-    "expected": "Start from prefix-free public defaults, then declare the selected project.name_prefix and folder roles without enabling a hidden library profile."
+    "expected": "Start from prefix-free public defaults, prepend the selected project.name_prefix explicitly and record every resulting name, root and folder role without enabling a hidden library profile."
+  },
+  {
+    "id": "expand-timer-feature",
+    "request": "The timer section in FEATURES.md now owns enough decisions and evidence for a separate feature document. Split it using this project's context convention.",
+    "should_activate": true,
+    "reference": "references/context-management.md",
+    "expected": "Create FEATURE_timer.md beside FEATURES.md, link it from the index, move the cohesive timer context and remove duplicated detail without retaining timer_FEATURE.md as an alias."
   },
   {
     "id": "plugin-free-project-initialization",
