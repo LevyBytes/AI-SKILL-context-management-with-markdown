@@ -1,4 +1,4 @@
-# Contributing to VS Code Context Management Agent Skill
+# Contributing to Context Management with Markdown Agent Skill
 
 Pull requests are accepted from approved contributors only.
 

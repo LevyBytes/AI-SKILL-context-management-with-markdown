@@ -1,6 +1,6 @@
-# VS Code Context Management Agent Skill for Claude Code and Codex
+# Context Management with Markdown Agent Skill for Claude Code and Codex
 
-![VS Code Context Management agent skill: Context Routers, Checkpoints, Setup Validation](.github/readme-banner.png)
+![Context Management with Markdown agent skill: Context Routers, Checkpoints, Setup Validation](.github/readme-banner.png)
 
 > [!WARNING]
 > **Work in progress.** This skill is incomplete. A custom harness, or plugins that use current frontier context-management approaches, will serve a project better than Markdown-based context management like this. Use this skill to learn the pattern or where a plugin-free setup is required.
