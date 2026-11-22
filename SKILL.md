@@ -1,5 +1,5 @@
 ---
-name: vscode-claude-codex-content-management-no-plugin
+name: context-management-with-markdown
 description: "Use when creating, restructuring or validating plugin-free project context and VS Code initialization for Claude Code and Codex, including concise AGENTS.md and CLAUDE.md routing, semantic feature, decision and checkpoint files, single-root or split-root workspaces, provider-specific access and temp roots, project folder and artifact-routing standards, context freshness and an optional Windows launcher; not for ordinary documentation edits, merely opening a workspace, source implementation, provider installation, skill deployment or publication."
 license: Apache-2.0
 metadata:
